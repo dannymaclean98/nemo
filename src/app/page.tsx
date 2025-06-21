@@ -18,26 +18,41 @@ export default function Home() {
     <div className="min-h-screen bg-black">
       {/* Header */}
       <header className="border-b border-gray-800">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <div className="relative">
-                <Camera className="w-8 h-8 text-white" />
+                <Camera className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h1 className="logo-text text-2xl text-white tracking-tight">
+              <h1 className="logo-text text-xl sm:text-2xl text-white tracking-tight">
                 Nemo
               </h1>
             </div>
             
             {/* Navigation */}
-            <div className="flex items-center space-x-4">
-              <ConnectButton />
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="scale-90 sm:scale-100 origin-right">
+                <ConnectButton 
+                  showBalance={{
+                    smallScreen: false,
+                    largeScreen: true,
+                  }}
+                  chainStatus={{
+                    smallScreen: "icon",
+                    largeScreen: "full",
+                  }}
+                  accountStatus={{
+                    smallScreen: 'avatar',
+                    largeScreen: 'full',
+                  }}
+                />
+              </div>
               <button
                 onClick={handleUserProfile}
-                className="p-2 rounded-lg border border-gray-700 hover:border-gray-600 transition-colors"
+                className="p-1.5 sm:p-2 rounded-lg border border-gray-700 hover:border-gray-600 transition-colors"
               >
-                <User className="w-5 h-5 text-gray-300" />
+                <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" />
               </button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Camera, ArrowLeft, ChevronLeft, ChevronRight, Calendar, Image as ImageIcon, Loader2, ExternalLink } from 'lucide-react';
+import { Camera, ArrowLeft, ChevronLeft, ChevronRight, Calendar, Image as ImageIcon, Loader2, ExternalLink, Copy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useAccount } from 'wagmi';
@@ -254,10 +254,10 @@ export default function ProfilePage() {
       <main className="max-w-5xl mx-auto px-6 py-12">
         <div className="text-center mb-16">
           <h2 className="text-display font-display text-white mb-4">
-            Your Collections
+            Your Albums
           </h2>
           <p className="text-xl text-gray-400 leading-relaxed">
-            Your photo albums on the blockchain
+            on base
           </p>
         </div>
 
@@ -439,7 +439,7 @@ function AlbumCard({ album, getIPFSImageUrl }: { album: Album; getIPFSImageUrl: 
 
           {/* Photo Info Overlay */}
           {currentPhoto && (
-            <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white text-sm px-4 py-2 rounded-lg max-w-xs">
+            <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white text-sm px-4 py-2 rounded-lg max-w-xs hidden sm:block">
               <div className="font-medium mb-1">{currentPhoto.name}</div>
               <div className="text-xs text-gray-300">Token #{currentPhoto.tokenId}</div>
             </div>
@@ -487,18 +487,6 @@ function AlbumCard({ album, getIPFSImageUrl }: { album: Album; getIPFSImageUrl: 
           </div>
         )}
 
-        {/* NFT Attributes */}
-        {currentPhoto && currentPhoto.attributes.length > 0 && (
-          <div className="grid grid-cols-2 gap-3">
-            {currentPhoto.attributes.slice(0, 4).map((attr, index) => (
-              <div key={index} className="bg-gray-900 rounded-lg p-3 border border-gray-800">
-                <div className="text-xs text-gray-400 mb-1">{attr.trait_type}</div>
-                <div className="text-sm text-white font-medium">{attr.value}</div>
-              </div>
-            ))}
-          </div>
-        )}
-
         {/* Action Buttons */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-800">
           <div className="flex space-x-3">
@@ -509,18 +497,20 @@ function AlbumCard({ album, getIPFSImageUrl }: { album: Album; getIPFSImageUrl: 
               className="btn-secondary text-sm flex items-center space-x-2"
             >
               <ExternalLink className="w-4 h-4" />
-              <span>View on Explorer</span>
+              <span className="hidden sm:inline">View on Base</span>
+              <span className="sm:hidden">BaseScan</span>
             </a>
             {currentPhoto && (
               <button 
                 onClick={() => navigator.clipboard.writeText(`https://nemo-photos.vercel.app/nft/${currentPhoto.tokenId}`)}
-                className="btn-secondary text-sm"
+                className="btn-secondary text-sm flex items-center space-x-2"
               >
-                Share NFT
+                <Copy className="w-4 h-4" />
+                <span>Share</span>
               </button>
             )}
           </div>
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-gray-500 hidden sm:block">
             ERC1155 Collection
           </div>
         </div>
